@@ -1,9 +1,10 @@
 class Building
-  attr_reader :units, :renters
+  attr_reader :units, :rented_units
 
   def initialize
     @units = []
     @renters = []
+    @rented_units = []
   end
 
   def add_unit(unit)
@@ -28,5 +29,19 @@ class Building
     end
     rents/count
   end
+
+  def rented_units
+    @units.each do |unit|
+      if unit.renter != nil
+        @rented_units << unit
+      end
+    end
+    @rented_units
+  end
+
+  def renter_with_highest_rent
+
+  end
+
 
 end
