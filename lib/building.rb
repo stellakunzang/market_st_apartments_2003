@@ -39,9 +39,29 @@ class Building
     @rented_units
   end
 
-  def renter_with_highest_rent
-
+  def sort_by_rent
+    @units.sort_by do |unit|
+      unit.monthly_rent
+    end
   end
 
+  def delete_nil_renters
+    remove_nil_renters = []
+    sort_by_rent.each do |unit|
+      if unit.renter != nil
+        remove_nil_renters << unit
+      end
+    end
+    remove_nil_renters
+  end
 
+  def renter_with_highest_rent
+    delete_nil_renters[-1].renter
+  end
+
+  def units_by_number_of_bedrooms
+    units_by_bedroom = @units.group_by do |unit|
+      unit.bedrooms
+    end
+  end
 end
