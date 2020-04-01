@@ -68,14 +68,12 @@ class Building
   def units_by_number_of_bedrooms
     units_by_num_bed = {}
     @units.each do |unit|
-      binding.pry
-      if units_by_num_bed[unit.bedroom] == nil
-        units_by_num_bed[unit.bedroom] = [unit.number]
+      if units_by_num_bed[unit.bedrooms] == nil
+        units_by_num_bed[unit.bedrooms] = [unit.number]
       else
-        units_by_num_bed[unit.bedroom] << unit.number
+        units_by_num_bed[unit.bedrooms] << unit.number
       end
     end
     units_by_num_bed
-    binding.pry
   end
 end
