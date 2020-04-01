@@ -3,8 +3,6 @@ class Building
 
   def initialize
     @units = []
-    @renters = []
-    @rented_units = []
   end
 
   def add_unit(unit)
@@ -12,12 +10,13 @@ class Building
   end
 
   def renters
+    renters = []
     @units.each do |unit|
       if unit.renter != nil
-        @renters << unit.renter.name
+        renters << unit.renter.name
       end
     end
-    @renters.uniq
+    renters
   end
 
   def average_rent
@@ -31,12 +30,13 @@ class Building
   end
 
   def rented_units
+    rented_units = []
     @units.each do |unit|
       if unit.renter != nil
-        @rented_units << unit
+        rented_units << unit
       end
     end
-    @rented_units
+    rented_units
   end
 
   def sort_by_rent
@@ -59,9 +59,23 @@ class Building
     delete_nil_renters[-1].renter
   end
 
+  # def units_by_number_of_bedrooms
+  #   units_by_bedroom = @units.group_by do |unit|
+  #     unit.bedrooms
+  #   end
+  # end
+  #
   def units_by_number_of_bedrooms
-    units_by_bedroom = @units.group_by do |unit|
-      unit.bedrooms
+    units_by_num_bed = {}
+    @units.each do |unit|
+      binding.pry
+      if units_by_num_bed[unit.bedroom] == nil
+        units_by_num_bed[unit.bedroom] = [unit.number]
+      else
+        units_by_num_bed[unit.bedroom] << unit.number
+      end
     end
+    units_by_num_bed
+    binding.pry
   end
 end
