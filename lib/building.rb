@@ -45,7 +45,7 @@ class Building
     end
   end
 
-  def delete_nil_renters
+  def units_with_renters
     remove_nil_renters = []
     sort_by_rent.each do |unit|
       if unit.renter != nil
@@ -56,7 +56,7 @@ class Building
   end
 
   def renter_with_highest_rent
-    delete_nil_renters[-1].renter
+    units_with_renters[-1].renter
   end
 
   # def units_by_number_of_bedrooms
@@ -76,4 +76,13 @@ class Building
     end
     units_by_num_bed
   end
+
+  def annual_breakdown
+    breakdown = {}
+    units_with_renters.each do |unit|
+      breakdown[unit.renter.name] = (unit.monthly_rent * 12)
+    end
+    breakdown
+  end
+
 end
