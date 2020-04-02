@@ -144,8 +144,17 @@ class BuildingTest < Minitest::Test
     assert_equal ({"Jessie" => 14400, "Spencer" => 11988}), building.annual_breakdown
   end
 
+  def test_it_can_sort_rooms_by_renter
+    building = Building.new
+    unit1 = Apartment.new({number: "A1", monthly_rent: 1200, bathrooms: 1, bedrooms: 1})
+    unit3 = Apartment.new({number: "C3", monthly_rent: 1150, bathrooms: 2, bedrooms: 2})
+    renter2 = Renter.new("Jessie")
+    renter3 = Renter.new("Max")
+    building.add_unit(unit1)
+    building.add_unit(unit3)
+    unit1.add_renter(renter2)
+    unit3.add_renter(renter3)
+
+    assert_equal ({renter2 => {bathrooms: 1, bedrooms: 1}, renter3 => {bathrooms: 2, bedrooms: 2}}), building.rooms_by_renter
+  end
 end
-#
-# pry(main)> building.rooms_by_renter
-# #=> {<Renter:0x00007fb333af5a80...> => {bathrooms: 1, bedrooms: 1},
-# #    #<Renter:0x00007fb333d0d7f0...> => {bathrooms: 2, bedrooms: 2}}
